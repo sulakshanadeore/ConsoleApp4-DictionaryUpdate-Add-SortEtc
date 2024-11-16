@@ -61,22 +61,35 @@ namespace ConsoleApp4
 
         public void SortData()
         {
-            var data = from p in Program.jewellerydetails
-                       group p by p.Value.Material;
+            //var data = from p in Program.jewellerydetails
+            //           group p by p.Value.Material;
 
-            foreach (var item in data)
+            //foreach (var item in data)
+            //{
+            //    Console.WriteLine(item.Key.ToString());
+            //    Console.WriteLine("--------------------");
+
+            //    foreach (var item1 in item)
+            //    {
+            //        Console.WriteLine(item1.Value.Type);
+            //        Console.WriteLine(item1.Value.Id);
+            //        Console.WriteLine(item1.Value.Price);
+            //        Console.WriteLine(item1.Value.Material);
+            //        Console.WriteLine();
+            //    }
+            //}
+
+
+            //var d=Program.jewellerydetails.OrderBy(j=>j.Value.Id);
+             //var d=Program.jewellerydetails.Values.OrderBy(j => j.Id);
+            var d = Program.jewellerydetails.Values.OrderByDescending(j => j.Id);
+            foreach (var item in d)
             {
-                Console.WriteLine(item.Key.ToString());
-                Console.WriteLine("--------------------");
-
-                foreach (var item1 in item)
-                {
-                    Console.WriteLine(item1.Value.Type);
-                    Console.WriteLine(item1.Value.Id);
-                    Console.WriteLine(item1.Value.Price);
-                    Console.WriteLine(item1.Value.Material);
-                    Console.WriteLine();
-                }
+                Console.WriteLine(item.Id);
+                Console.WriteLine(item.Price);
+                Console.WriteLine(item.Material);
+                Console.WriteLine(item.Price);
+                Console.WriteLine(  );
             }
 
 

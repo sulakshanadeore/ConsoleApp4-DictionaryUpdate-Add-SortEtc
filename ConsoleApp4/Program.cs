@@ -18,8 +18,52 @@ namespace ConsoleApp4
             jewellerydetails.Add(2, new Jewellery { Id = "JW01", Material = "Gold", Price = 2000, Type = "Chain" });
             jewellerydetails.Add(4, new Jewellery { Id = "JW03", Material = "Silver", Price = 11000, Type = "Bracelet" });
 
-            JewelleryUtility u= new JewelleryUtility(); 
-            u.SortData();   
+            //JewelleryUtility u= new JewelleryUtility(); 
+            //u.SortData();   
+
+
+            //List<string> list = new List<string>();
+            //list.Add("Pranit");
+            //list.Add("Sumit");
+
+            //var n = from s in list
+            //        from s1 in s
+            //        select s1;
+
+            //foreach (var item in n)
+            //{
+            //    Console.Write(item  + " ");
+            //}
+
+
+
+            //distinctDemo();
+
+            List<List<string>> products = new List<List<string>>
+{
+    new List<string> { "Apple", "Banana", "Grapes" },
+    new List<string> { "Coke", "Milk", "Fanta" },
+    new List<string> { "Mobile", "TV", "Tablet","Laptop" }
+ };
+            List<string> allProducts = products.SelectMany(x => x).ToList();
+            foreach (var item in allProducts)
+            {
+                Console.WriteLine(item);
+            }
+            Console.WriteLine("-----------");
+
+            //Or if we want we can project the inner list too, both are same
+            List<string> selectmanyexample = products.SelectMany(x => x.Select(z => z)).ToList();
+
+            foreach (var item in selectmanyexample)
+            {
+                Console.WriteLine(item);
+                Console.WriteLine();
+            }
+
+
+
+
 
 
 
@@ -30,6 +74,25 @@ namespace ConsoleApp4
             //AddJewellery();
 
             Console.ReadLine();
+        }
+
+        private static void distinctDemo()
+        {
+            List<Jewellery> jlist = new List<Jewellery>();
+            jlist.Add(new Jewellery { Id = "1", Material = "Alloy", Type = "ring", Price = 2000 });
+            jlist.Add(new Jewellery { Id = "2", Material = "Gold", Type = "Bracelets", Price = 2000 });
+            jlist.Add(new Jewellery { Id = "1", Material = "Alloy", Type = "ring", Price = 2000 });
+
+            var allData = (from j in jlist
+                           select new { j.Id }).Distinct().ToList();
+            foreach (var item in allData)
+            {
+                Console.WriteLine(item.Id);
+                //Console.WriteLine(item.Price);
+                //Console.WriteLine(item.Material);
+                //Console.WriteLine(item.Price);
+                Console.WriteLine();
+            }
         }
 
         private static void AddJewellery()
