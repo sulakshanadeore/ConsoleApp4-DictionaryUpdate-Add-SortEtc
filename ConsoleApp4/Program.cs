@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -39,41 +40,77 @@ namespace ConsoleApp4
 
             //distinctDemo();
 
-            List<List<string>> products = new List<List<string>>
-{
-    new List<string> { "Apple", "Banana", "Grapes" },
-    new List<string> { "Coke", "Milk", "Fanta" },
-    new List<string> { "Mobile", "TV", "Tablet","Laptop" }
- };
-            List<string> allProducts = products.SelectMany(x => x).ToList();
-            foreach (var item in allProducts)
-            {
-                Console.WriteLine(item);
-            }
-            Console.WriteLine("-----------");
+            //            List<List<string>> products = new List<List<string>>
+            //{
+            //    new List<string> { "Apple", "Banana", "Grapes" },
+            //    new List<string> { "Coke", "Milk", "Fanta" },
+            //    new List<string> { "Mobile", "TV", "Tablet","Laptop" }
+            // };
+            //            List<string> allProducts = products.SelectMany(x => x).ToList();
+            //            foreach (var item in allProducts)
+            //            {
+            //                Console.WriteLine(item);
+            //            }
+            //            Console.WriteLine("-----------");
 
-            //Or if we want we can project the inner list too, both are same
-            List<string> selectmanyexample = products.SelectMany(x => x.Select(z => z)).ToList();
+            //            //Or if we want we can project the inner list too, both are same
+            //            List<string> selectmanyexample = products.SelectMany(x => x.Select(z => z)).ToList();
 
-            foreach (var item in selectmanyexample)
+            //            foreach (var item in selectmanyexample)
+            //            {
+            //                Console.WriteLine();
+            //            }
+
+
+            //Onlyfetchlanguages();
+
+            var namesWithLang = Student.GetStudents().SelectMany(l => l.ProgrammingLanguages, (s, p) => new { studname = s.StudentName, langname = p }).GroupBy(sn=>sn.studname);
+
+           //var mydata= namesWithLang.GroupBy(sn => sn.studname);
+
+            foreach (var item in namesWithLang)
             {
-                Console.WriteLine(item);
+                Console.WriteLine(item.Key);
+
+                foreach (var item1 in item)
+                {
+
+                   
+                        Console.WriteLine(item1.langname);
+                    
+
+                }
                 Console.WriteLine();
             }
-
-
-
-
-
-
-
-
 
             //   FindJewellery();
             //UpdateDictionary();
             //AddJewellery();
 
             Console.ReadLine();
+        }
+
+        private static void Onlyfetchlanguages()
+        {
+            var langs = from p in Student.GetStudents()
+                        from p1 in p.ProgrammingLanguages
+                        select p1;
+
+
+            foreach (var item in langs)
+            {
+                Console.WriteLine(item);
+            }
+
+            Console.WriteLine("Using Method syntax");
+
+            var langslist = Student.GetStudents().SelectMany(s => s.ProgrammingLanguages).ToList();
+
+            foreach (var item in langslist)
+            {
+                Console.WriteLine(item);
+
+            }
         }
 
         private static void distinctDemo()
