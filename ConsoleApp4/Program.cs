@@ -38,7 +38,7 @@ namespace ConsoleApp4
 
 
 
-            //distinctDemo();
+            distinctDemo();
 
             //            List<List<string>> products = new List<List<string>>
             //{
@@ -64,9 +64,20 @@ namespace ConsoleApp4
 
             //Onlyfetchlanguages();
 
-            var namesWithLang = Student.GetStudents().SelectMany(l => l.ProgrammingLanguages, (s, p) => new { studname = s.StudentName, langname = p }).GroupBy(sn=>sn.studname);
+            //StudentWithLangList();
 
-           //var mydata= namesWithLang.GroupBy(sn => sn.studname);
+            //   FindJewellery();
+            //UpdateDictionary();
+            //AddJewellery();
+
+            Console.ReadLine();
+        }
+
+        private static void StudentWithLangList()
+        {
+            var namesWithLang = Student.GetStudents().SelectMany(l => l.ProgrammingLanguages, (s, p) => new { studname = s.StudentName, langname = p }).GroupBy(sn => sn.studname);
+
+            //var mydata= namesWithLang.GroupBy(sn => sn.studname);
 
             foreach (var item in namesWithLang)
             {
@@ -75,19 +86,13 @@ namespace ConsoleApp4
                 foreach (var item1 in item)
                 {
 
-                   
-                        Console.WriteLine(item1.langname);
-                    
+
+                    Console.WriteLine(item1.langname);
+
 
                 }
                 Console.WriteLine();
             }
-
-            //   FindJewellery();
-            //UpdateDictionary();
-            //AddJewellery();
-
-            Console.ReadLine();
         }
 
         private static void Onlyfetchlanguages()
@@ -121,15 +126,28 @@ namespace ConsoleApp4
             jlist.Add(new Jewellery { Id = "1", Material = "Alloy", Type = "ring", Price = 2000 });
 
             var allData = (from j in jlist
-                           select new { j.Id }).Distinct().ToList();
+                           select new { j.Id,matname=j.Material,mattype=j.Type,cost=j.Price}).Distinct().ToList();
+
             foreach (var item in allData)
             {
                 Console.WriteLine(item.Id);
-                //Console.WriteLine(item.Price);
-                //Console.WriteLine(item.Material);
-                //Console.WriteLine(item.Price);
+                Console.WriteLine(item.cost);
+                Console.WriteLine(item.matname);
+                Console.WriteLine(item.mattype);
                 Console.WriteLine();
             }
+
+            var allData1 = (from j in jlist
+                           select new { j.Id }).Distinct().ToList();
+
+            foreach (var item in allData1)
+            {
+                Console.WriteLine(item.Id);
+            }
+
+
+            //  var allData=jlist.Distinct().ToList();  
+
         }
 
         private static void AddJewellery()
